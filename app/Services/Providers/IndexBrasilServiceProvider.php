@@ -6,12 +6,12 @@ namespace App\Services\Providers;
 
 use App\Collections\CitiesCollection;
 use Illuminate\Support\Facades\Http;
-use App\Services\Interfaces\MunicipalityProviderInterface;
+use App\Services\Interfaces\IIndexBrasilServiceProvider;
 use App\Support\ApiReturn;
 
-class BrasilApiMunicipalityProvider implements MunicipalityProviderInterface
+class IndexBrasilServiceProvider implements IIndexBrasilServiceProvider
 {
-    public function getMunicipalitiesByUf(string $uf): array
+    public function handle(string $uf): array
     {
         $urlBase = config('services.brasilapi.municipios_url');
         $url = $urlBase . '/' . strtoupper($uf);

@@ -6,12 +6,12 @@ namespace App\Services\Providers;
 
 use App\Collections\CitiesCollection;
 use Illuminate\Support\Facades\Http;
-use App\Services\Interfaces\MunicipalityProviderInterface;
+use App\Services\Interfaces\IIndexBrasilServiceProvider;
 use App\Support\ApiReturn;
 
-class IBGEMunicipalityProvider implements MunicipalityProviderInterface
+class IBGEMunicipalityProvider implements IIndexBrasilServiceProvider
 {
-    public function getMunicipalitiesByUf(string $uf): array
+    public function handle(string $uf): array
     {
         $urlBase = config('services.ibge.municipios_url');
         $url = $urlBase . '/' . strtolower($uf) . '/municipios';
