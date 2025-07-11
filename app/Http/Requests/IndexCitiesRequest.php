@@ -4,18 +4,29 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
 
-class IndexCitiesRequest extends Request
+class IndexCitiesRequest extends FormRequest
 {
     public function authorize(): bool
     {
         return true;
     }
+
+    protected function prepareForValidation(): void
+{
+    $this->merge([
+        'uf' => $this->has('uf') && is_string($this->input('uf')) ? strtoupper($this->input('uf')) : null,
+    ]);
+}
     public function rules(): array
     {
         return [
-            'uf'        => ['required', 'string', 'size:2'],
+            'uf'        => ['sometimes', 'string', 'size:2'],
             'page'      => ['required', 'integer', 'min:1'],
             'per_page'  => ['required', 'integer', 'min:1', 'max:100'],
         ];
@@ -24,13 +35,35 @@ class IndexCitiesRequest extends Request
     public function messages(): array
     {
         return [
-            'uf.required'     => 'O parâmetro UF é obrigatório.',
-            'uf.size'         => 'O parâmetro UF deve conter exatamente 2 letras.',
-            'page.required'   => 'O parâmetro page é obrigatório.',
-            'page.integer'    => 'O parâmetro page deve ser um número inteiro.',
-            'per_page.required' => 'O parâmetro per_page é obrigatório.',
-            'per_page.integer'  => 'O parâmetro per_page deve ser um número inteiro.',
-            'per_page.max'      => 'O per_page não pode ser maior que 100.',
+            'uf.required'        => 'O parâmetro UF é obrigatório.',
+            'uf.size'            => 'O parâmetro UF deve conter exatamente 2 letras.',
+            'page.required'      => 'O parâmetro page é obrigatório.',
+            'page.integer'       => 'O parâmetro page deve ser um número inteiro.',
+            'per_page.required'  => 'O parâmetro per_page é obrigatório.',
+            'per_page.integer'   => 'O parâmetro per_page deve ser um número inteiro.',
+            'per_page.max'       => 'O per_page não pode ser maior que 100.',
         ];
+    }
+
+    #[\Override]
+    protected function failedValidation(Validator $validator): void
+    {
+        $errors = [];
+
+        foreach ($validator->errors()->all() as $message) {
+            $errors[] = [
+                'title' => 'Campo inválido',
+                'detail' => $message,
+            ];
+        }
+
+        $response = [
+            'status' => 'FAIL',
+            'message' => 'Parâmetro(s) inválido(s). Tente novamente.',
+            'data' => null,
+            'errors' => $errors,
+        ];
+
+        throw new HttpResponseException(new JsonResponse($response, Response::HTTP_BAD_REQUEST));
     }
 }

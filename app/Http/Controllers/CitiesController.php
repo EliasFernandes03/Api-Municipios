@@ -10,15 +10,15 @@ use Illuminate\Http\JsonResponse;
 
 class CitiesController extends Controller
 {
-    public function __construct(private IndexCitiesService $indexCitiesService) {}
 
-    public function index(IndexCitiesRequest $request): JsonResponse
+    public function index(IndexCitiesRequest $request, IndexCitiesService $indexCitiesService): JsonResponse
     {
+
         $uf = $request->input('uf');
-        
-        $collection = $this->indexCitiesService
+
+        $collection = $indexCitiesService
             ->setUf($uf)
-            ->setCacheTtl(3600)
+            ->setCacheTtl(1)
             ->setPage((int) $request->input('page', 1))
             ->setPerPage((int) $request->input('per_page', 15))
             ->handle();

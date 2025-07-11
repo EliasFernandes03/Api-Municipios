@@ -15,7 +15,7 @@ class IndexBrasilServiceProvider implements IIndexBrasilServiceProvider
     {
         $urlBase = config('services.brasilapi.municipios_url');
 
-        $url = $urlBase . '/' . strtoupper($uf);
+        $url = $urlBase . '/' . ($uf);
         $response = Http::get($url);
 
         if ($response->failed()) {

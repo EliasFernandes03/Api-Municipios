@@ -52,13 +52,19 @@ class IndexCitiesService
         $this->perPage = $perPage;
         return $this;
     }
+
     public function handle(): IndexCitiesCollection
     {
-        // Chamada direta, sem cache
-        $allCities = $this->brasilServiceProvider->handle($this->uf);
+        $cacheKey = "cities_{$this->uf}";
+
+        $allCities = Cache::store($this->cacheDriver)->remember(
+            $cacheKey,
+            $this->cacheTtl,
+            fn () => $this->brasilServiceProvider->handle($this->uf)
+        );
 
         $citiesData = $allCities['data'] ?? [];
-        dd($citiesData);
+
         $total = count($citiesData);
         $offset = ($this->page - 1) * $this->perPage;
 
