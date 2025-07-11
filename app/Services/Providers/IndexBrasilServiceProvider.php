@@ -21,8 +21,7 @@ class IndexBrasilServiceProvider implements IIndexBrasilServiceProvider
             return ApiReturn::error('Erro ao consultar BrasilAPI');
         }
 
-        $municipios = (new IndexCitiesCollection($response->json()))->format();
 
-        return ApiReturn::success($municipios, 'Municípios carregados via BrasilAPI');
+        return ApiReturn::success($response->json(), 'Municípios carregados via BrasilAPI');
     }
 }

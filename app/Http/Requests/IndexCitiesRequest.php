@@ -14,7 +14,6 @@ class IndexCitiesRequest extends FormRequest
     }
     public function prepareForValidation(): void
     {
-
             $this->merge([
                 'uf' => strtoupper($this->input('uf'))
             ]);
@@ -23,8 +22,8 @@ class IndexCitiesRequest extends FormRequest
     {
         return [
             'uf'        => ['required', 'string', 'size:2'],
-            'page'      => ['sometimes', 'integer', 'min:1'],
-            'per_page'  => ['sometimes', 'integer', 'min:1', 'max:100'],
+            'page'      => ['required', 'integer', 'min:1'],
+            'per_page'  => ['required', 'integer', 'min:1', 'max:100'],
         ];
     }
 
@@ -36,6 +35,8 @@ class IndexCitiesRequest extends FormRequest
             'page.integer' => 'O parâmetro page deve ser um número inteiro.',
             'per_page.integer' => 'O parâmetro per_page deve ser um número inteiro.',
             'per_page.max' => 'O per_page não pode ser maior que 100.',
+            'per_page.required' => 'O parâmetro UF é obrigatório.',
+            'page.required' => 'O parâmetro UF é obrigatório.',
         ];
     }
 }

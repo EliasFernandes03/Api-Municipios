@@ -4,17 +4,33 @@ declare(strict_types=1);
 
 namespace App\Collections;
 
-use Illuminate\Support\Collection;
-
-class IndexCitiesCollection extends Collection
+class IndexCitiesCollection
 {
-    public function format(): array
+    private array $data;
+    private int $total;
+    private int $page;
+    private int $perPage;
+    private int $lastPage;
+
+    public function __construct(array $data, int $total, int $page, int $perPage)
     {
-        return $this->map(function ($item) {
-            return [
-                'nome' => $item['nome'] ?? null,
-                'codigo_ibge' => $item['codigo_ibge'] ?? null,
-            ];
-        })->toArray();
+        $this->data = $data;
+        $this->total = $total;
+        $this->page = $page;
+        $this->perPage = $perPage;
+        $this->lastPage = (int) ceil($total / $perPage);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'data' => $this->data,
+            'meta' => [
+                'total' => $this->total,
+                'page' => $this->page,
+                'per_page' => $this->perPage,
+                'last_page' => $this->lastPage,
+            ],
+        ];
     }
 }

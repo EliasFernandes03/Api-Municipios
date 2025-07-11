@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\CitiesService;
 
+use App\Collections\IndexCitiesCollection ;
+
 use App\Services\Interfaces\IIndexBrasilServiceProvider;
 use Illuminate\Support\Facades\Cache;
 
@@ -12,6 +14,9 @@ class IndexCitiesService
     private string $uf = 'RS'; 
     private int $cacheTtl;
     private string $cacheDriver = 'file';
+
+    private int $page = 1;
+    private int $perPage = 15;
 
     public function __construct(private IIndexBrasilServiceProvider $brasilServiceProvider)
     {
@@ -36,14 +41,35 @@ class IndexCitiesService
         return $this;
     }
 
-    public function handle(): array
+    public function setPage(int $page): self
+    {
+        $this->page = max(1, $page);
+        return $this;
+    }
+
+    public function setPerPage(int $perPage): self
+    {
+        $this->perPage = max(1, $perPage);
+        return $this;
+    }
+
+    public function handle(): IndexCitiesCollection
     {
         $cacheKey = "cities_{$this->uf}";
 
-        return Cache::store($this->cacheDriver)->remember(
+        $allCities = Cache::store($this->cacheDriver)->remember(
             $cacheKey,
             $this->cacheTtl,
             fn () => $this->brasilServiceProvider->handle($this->uf)
         );
+
+        $citiesData = $allCities['data'] ?? [];
+
+        $total = count($citiesData);
+        $offset = ($this->page - 1) * $this->perPage;
+
+        $paginated = array_slice($citiesData, $offset, $this->perPage);
+
+        return new IndexCitiesCollection($paginated, $total, $this->page, $this->perPage);
     }
 }
