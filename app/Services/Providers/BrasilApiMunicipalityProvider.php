@@ -21,10 +21,7 @@ class BrasilApiMunicipalityProvider implements MunicipalityProviderInterface
             return ApiReturn::error('Erro ao consultar BrasilAPI');
         }
 
-        $collection = new CitiesCollection($response->json());
-
-        $municipios = $collection->format();
-
+        $municipios = (new CitiesCollection($response->json()))->format();
 
         return ApiReturn::success($municipios, 'Municípios carregados via BrasilAPI');
     }
