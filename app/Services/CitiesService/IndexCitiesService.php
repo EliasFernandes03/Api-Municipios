@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\CitiesService;
 
 use App\Services\Interfaces\IIndexBrasilServiceProvider;
 use Illuminate\Support\Facades\Cache;
-
-class MunicipalityService
+class IndexCitiesService
 {
-    public function __construct(
-        protected IIndexBrasilServiceProvider $provider
-    ) {}
-
-    public function getByUf(string $uf): array
+    public function __construct(private IIndexBrasilServiceProvider $brasilServiceProvider)
     {
-        return Cache::remember("municipios_{$uf}", now()->addHours(1), function () use ($uf) {
-            return $this->provider->handle($uf);
+    }
+    public function handle(string $uf): array
+    {
+        $cacheKey = "cities_{$uf}";
+        $cacheTTL = config('services.cache.cities_ttl'); 
+
+        return Cache::store('file')->remember($cacheKey, $cacheTTL, function () use ($uf) {
+            return $this->brasilServiceProvider->handle($uf);
         });
     }
 }
