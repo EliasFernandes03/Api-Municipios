@@ -35,4 +35,6 @@ return [
         ],
     ],
 
+    'municipality_provider' => env('MUNICIPALITY_PROVIDER', 'brasilapi'),
+
 ];
