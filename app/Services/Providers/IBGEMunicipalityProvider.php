@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Providers;
 
+use App\Collections\CitiesCollection;
 use Illuminate\Support\Facades\Http;
 use App\Services\Interfaces\MunicipalityProviderInterface;
 use App\Support\ApiReturn;
@@ -20,12 +21,9 @@ class IBGEMunicipalityProvider implements MunicipalityProviderInterface
             return ApiReturn::error('Erro ao consultar BrasilAPI');
         }
 
-        $municipios = collect($response->json())->map(function ($item) {
-            return [
-                'name' => $item['nome'],
-                'ibge_code' => $item['id'],
-            ];
-        })->toArray();
+        $collection = new CitiesCollection($response->json());
+
+        $municipios = $collection->format();
 
         return ApiReturn::success($municipios, 'Municípios carregados via IBGE');
     }
