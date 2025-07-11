@@ -4,19 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class IndexCitiesRequest extends FormRequest
+class IndexCitiesRequest extends Request
 {
     public function authorize(): bool
     {
         return true;
-    }
-    public function prepareForValidation(): void
-    {
-            $this->merge([
-                'uf' => strtoupper($this->input('uf'))
-            ]);
     }
     public function rules(): array
     {
@@ -30,13 +24,13 @@ class IndexCitiesRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'uf.required' => 'O parâmetro UF é obrigatório.',
-            'uf.size'     => 'O parâmetro UF deve conter exatamente 2 letras.',
-            'page.integer' => 'O parâmetro page deve ser um número inteiro.',
-            'per_page.integer' => 'O parâmetro per_page deve ser um número inteiro.',
-            'per_page.max' => 'O per_page não pode ser maior que 100.',
-            'per_page.required' => 'O parâmetro UF é obrigatório.',
-            'page.required' => 'O parâmetro UF é obrigatório.',
+            'uf.required'     => 'O parâmetro UF é obrigatório.',
+            'uf.size'         => 'O parâmetro UF deve conter exatamente 2 letras.',
+            'page.required'   => 'O parâmetro page é obrigatório.',
+            'page.integer'    => 'O parâmetro page deve ser um número inteiro.',
+            'per_page.required' => 'O parâmetro per_page é obrigatório.',
+            'per_page.integer'  => 'O parâmetro per_page deve ser um número inteiro.',
+            'per_page.max'      => 'O per_page não pode ser maior que 100.',
         ];
     }
 }

@@ -38,11 +38,11 @@ return [
     'municipality_provider' => env('MUNICIPALITY_PROVIDER', 'brasilapi'),
 
     'brasilapi' => [
-        'municipios_url' => env('BRASILAPI_URL'),
+        'municipios_url' => env('BRASILAPI_URL' ),
     ],
 
     'ibge' => [
-        'municipios_url' => env('IBGEAPI_URL'),
+        'municipios_url' => env('IBGEAPI_URL' ),
     ],
 
 ];
