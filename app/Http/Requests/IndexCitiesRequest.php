@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
+use App\Enums\BrazilUFEnum;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class IndexCitiesRequest extends FormRequest
@@ -26,7 +28,7 @@ class IndexCitiesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uf'        => ['sometimes', 'string', 'size:2'],
+            'uf' => ['sometimes', 'string', 'size:2', Rule::in(BrazilUFEnum::values())],
             'page'      => ['required', 'integer', 'min:1'],
             'per_page'  => ['required', 'integer', 'min:1', 'max:100'],
         ];
@@ -37,6 +39,7 @@ class IndexCitiesRequest extends FormRequest
         return [
             'uf.required'        => 'O parâmetro UF é obrigatório.',
             'uf.size'            => 'O parâmetro UF deve conter exatamente 2 letras.',
+            'uf.in' => 'O parâmetro UF deve ser uma UF válida do Brasil',
             'page.required'      => 'O parâmetro page é obrigatório.',
             'page.integer'       => 'O parâmetro page deve ser um número inteiro.',
             'per_page.required'  => 'O parâmetro per_page é obrigatório.',
