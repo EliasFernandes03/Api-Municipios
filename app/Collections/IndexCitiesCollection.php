@@ -6,7 +6,7 @@ namespace App\Collections;
 
 use Illuminate\Support\Collection;
 
-class CitiesCollection extends Collection
+class IndexCitiesCollection extends Collection
 {
     public function format(): array
     {

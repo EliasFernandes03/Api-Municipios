@@ -24,7 +24,6 @@ class CitiesController extends Controller
                 ->setCacheTtl(3600) 
                 ->handle();
 
-            // Paginação manual
             $total = count($allCities['data'] ?? []);
             $offset = ($page - 1) * $perPage;
             $paginated = array_slice($allCities['data'] ?? [], $offset, $perPage);

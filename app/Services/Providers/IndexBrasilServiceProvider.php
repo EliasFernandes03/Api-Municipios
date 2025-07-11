@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Providers;
 
-use App\Collections\CitiesCollection;
+use App\Collections\IndexCitiesCollection;
 use Illuminate\Support\Facades\Http;
 use App\Services\Interfaces\IIndexBrasilServiceProvider;
 use App\Support\ApiReturn;
@@ -21,7 +21,7 @@ class IndexBrasilServiceProvider implements IIndexBrasilServiceProvider
             return ApiReturn::error('Erro ao consultar BrasilAPI');
         }
 
-        $municipios = (new CitiesCollection($response->json()))->format();
+        $municipios = (new IndexCitiesCollection($response->json()))->format();
 
         return ApiReturn::success($municipios, 'Municípios carregados via BrasilAPI');
     }
