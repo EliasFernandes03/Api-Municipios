@@ -39,7 +39,7 @@ class IndexCitiesRequest extends FormRequest
         return [
             'uf.required'        => 'O parâmetro UF é obrigatório.',
             'uf.size'            => 'O parâmetro UF deve conter exatamente 2 letras.',
-            'uf.in' => 'O parâmetro UF deve ser uma UF válida do Brasil',
+            'uf.in'              => 'O parâmetro UF deve ser uma UF válida do Brasil',
             'page.required'      => 'O parâmetro page é obrigatório.',
             'page.integer'       => 'O parâmetro page deve ser um número inteiro.',
             'per_page.required'  => 'O parâmetro per_page é obrigatório.',
