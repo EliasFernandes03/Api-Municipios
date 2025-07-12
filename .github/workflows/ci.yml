@@ -1,3 +1,12 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master  # Ajuste para o branch principal do seu projeto
+  pull_request:
+    branches:
+      - master
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
