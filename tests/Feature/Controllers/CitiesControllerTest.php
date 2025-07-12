@@ -15,7 +15,7 @@ class CitiesControllerTest extends TestCase
         $response->assertJsonStructure([
             'success',
             'message',
-            'data',         
+            'data',
 
         ]);
 

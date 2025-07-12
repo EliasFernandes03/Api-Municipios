@@ -7,9 +7,13 @@ namespace App\Collections;
 class IndexCitiesCollection
 {
     private array $data;
+
     private int $total;
+
     private int $page;
+
     private int $perPage;
+
     private int $lastPage;
 
     public function __construct(array $data, int $total, int $page, int $perPage)

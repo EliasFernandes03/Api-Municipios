@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
 use App\Enums\BrazilUFEnum;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,31 +20,32 @@ class IndexCitiesRequest extends FormRequest
     }
 
     protected function prepareForValidation(): void
-{
-    $this->merge([
-        'uf' => $this->has('uf') && is_string($this->input('uf')) ? strtoupper($this->input('uf')) : null,
-    ]);
-}
+    {
+        $this->merge([
+            'uf' => $this->has('uf') && is_string($this->input('uf')) ? strtoupper($this->input('uf')) : null,
+        ]);
+    }
+
     public function rules(): array
     {
         return [
             'uf' => ['sometimes', 'string', 'size:2', Rule::in(BrazilUFEnum::values())],
-            'page'      => ['required', 'integer', 'min:1'],
-            'per_page'  => ['required', 'integer', 'min:1', 'max:100'],
+            'page' => ['required', 'integer', 'min:1'],
+            'per_page' => ['required', 'integer', 'min:1', 'max:100'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'uf.required'        => 'O parâmetro UF é obrigatório.',
-            'uf.size'            => 'O parâmetro UF deve conter exatamente 2 letras.',
-            'uf.in'              => 'O parâmetro UF deve ser uma UF válida do Brasil',
-            'page.required'      => 'O parâmetro page é obrigatório.',
-            'page.integer'       => 'O parâmetro page deve ser um número inteiro.',
-            'per_page.required'  => 'O parâmetro per_page é obrigatório.',
-            'per_page.integer'   => 'O parâmetro per_page deve ser um número inteiro.',
-            'per_page.max'       => 'O per_page não pode ser maior que 100.',
+            'uf.required' => 'O parâmetro UF é obrigatório.',
+            'uf.size' => 'O parâmetro UF deve conter exatamente 2 letras.',
+            'uf.in' => 'O parâmetro UF deve ser uma UF válida do Brasil',
+            'page.required' => 'O parâmetro page é obrigatório.',
+            'page.integer' => 'O parâmetro page deve ser um número inteiro.',
+            'per_page.required' => 'O parâmetro per_page é obrigatório.',
+            'per_page.integer' => 'O parâmetro per_page deve ser um número inteiro.',
+            'per_page.max' => 'O per_page não pode ser maior que 100.',
         ];
     }
 

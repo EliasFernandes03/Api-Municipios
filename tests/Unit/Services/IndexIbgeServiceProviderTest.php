@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Http;
 use App\Services\Interfaces\IIndexIbgeServiceProvider;
+use Illuminate\Support\Facades\Http;
+use Tests\TestCase;
 
 class IndexIbgeServiceProviderTest extends TestCase
 {

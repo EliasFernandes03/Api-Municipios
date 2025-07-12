@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Providers;
 
-use Illuminate\Support\Facades\Http;
 use App\Services\Interfaces\IIndexIbgeServiceProvider;
 use App\Support\ApiReturn;
+use Illuminate\Support\Facades\Http;
 
 class IndexIbgeServiceProvider implements IIndexIbgeServiceProvider
 {
@@ -14,7 +14,7 @@ class IndexIbgeServiceProvider implements IIndexIbgeServiceProvider
     {
         $urlBase = config('services.ibgeapi.ibge_url');
 
-        $url = $urlBase . '/' . ($uf) . "/municipios";
+        $url = $urlBase.'/'.($uf).'/municipios';
         $response = Http::get($url);
 
         if ($response->failed()) {

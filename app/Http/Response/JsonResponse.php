@@ -12,12 +12,12 @@ class JsonResponse extends SymfonyJsonResponse
             parent::__construct($content, $status);
         } catch (ResourceNotFoundException $exception) {
             return new SymfonyJsonResponse(
-                ['error' => $exception->getMessage()], 
+                ['error' => $exception->getMessage()],
                 Response::HTTP_NOT_FOUND
             );
         } catch (\Exception $exception) {
             return new SymfonyJsonResponse(
-                ['error' => $exception->getMessage()], 
+                ['error' => $exception->getMessage()],
                 Response::HTTP_BAD_REQUEST
             );
         }

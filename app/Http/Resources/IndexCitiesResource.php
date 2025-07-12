@@ -19,7 +19,7 @@ class IndexCitiesResource extends ResourceCollection
                 'page' => $this->additional['page'] ?? 1,
                 'per_page' => $this->additional['per_page'] ?? 15,
                 'last_page' => $this->additional['last_page'] ?? 1,
-            ]
+            ],
         ];
     }
 }

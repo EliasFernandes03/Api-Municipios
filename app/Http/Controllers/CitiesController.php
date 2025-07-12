@@ -10,7 +10,6 @@ use Illuminate\Http\JsonResponse;
 
 class CitiesController extends Controller
 {
-
     public function index(IndexCitiesRequest $request, IndexCitiesService $indexCitiesService): JsonResponse
     {
 
@@ -29,7 +28,4 @@ class CitiesController extends Controller
             ...$collection->toArray(),
         ]);
     }
-
-
-
 }

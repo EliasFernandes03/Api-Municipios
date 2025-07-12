@@ -11,7 +11,7 @@ class ApiReturn
         return [
             'success' => true,
             'message' => $message,
-            'data'    => $data,
+            'data' => $data,
         ];
     }
 
@@ -20,7 +20,7 @@ class ApiReturn
         return [
             'success' => false,
             'message' => $message,
-            'data'    => $data,
+            'data' => $data,
         ];
     }
 }
