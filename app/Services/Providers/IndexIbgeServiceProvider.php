@@ -21,7 +21,6 @@ class IndexIbgeServiceProvider implements IIndexIbgeServiceProvider
             return ApiReturn::error('Erro ao consultar IBGE API');
         }
 
-
         return ApiReturn::success($response->json(), 'Municípios carregados via IBGE API');
     }
 }
