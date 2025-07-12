@@ -7,9 +7,10 @@ namespace App\Services\CitiesService;
 use App\Collections\IndexCitiesCollection ;
 
 use App\Services\Interfaces\IIndexBrasilServiceProvider;
+use App\Services\Interfaces\IIndexCitiesService;
 use Illuminate\Support\Facades\Cache;
 
-class IndexCitiesService
+class IndexCitiesService implements IIndexCitiesService
 {
     private string $uf = 'RS'; 
     private int $cacheTtl;
