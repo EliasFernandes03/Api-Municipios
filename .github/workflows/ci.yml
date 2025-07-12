@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master  # Ajuste para o branch principal do seu projeto
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3' 
+          extensions: mbstring, dom, fileinfo, mysql  
+          tools: composer:v2
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Generate APP_KEY
+        run: php artisan key:generate
+
+      - name: Run Laravel Pint
+        run: ./vendor/bin/pint --test
+
+      - name: Run Tests
+        run: php artisan test
