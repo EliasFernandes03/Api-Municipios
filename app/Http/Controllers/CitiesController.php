@@ -18,7 +18,7 @@ class CitiesController extends Controller
 
         $collection = $indexCitiesService
             ->setUf($uf)
-            ->setCacheTtl(1)
+            ->setCacheTtl(3600)
             ->setPage((int) $request->input('page', 1))
             ->setPerPage((int) $request->input('per_page', 15))
             ->handle();
