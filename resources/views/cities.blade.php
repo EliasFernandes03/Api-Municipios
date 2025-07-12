@@ -32,6 +32,6 @@
     </div>
 </div>
 
-<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ secure_asset('js/script.js') }}"></script>
 </body>
 </html>
