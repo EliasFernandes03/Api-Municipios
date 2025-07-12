@@ -3,31 +3,27 @@
 namespace App\Providers;
 
 use App\Services\Interfaces\IIndexBrasilServiceProvider;
+use App\Services\Interfaces\IIndexIbgeServiceProvider;
 use App\Services\Providers\IndexBrasilServiceProvider;
-use App\Services\Providers\IBGEMunicipalityProvider;
+
+use App\Services\Providers\IndexIbgeServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class CitiesServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        $this->app->bind(IIndexBrasilServiceProvider::class, function () {
-            $provider = config('services.municipality_provider');
 
-            return match ($provider) {
-                'brasilapi' => new IndexBrasilServiceProvider(),
-                'ibge' => new IBGEMunicipalityProvider(),
-                default => throw new \Exception("Provider inválido"),
-            };
+   public function register(): void
+    {
+
+        $this->app->bind(IIndexBrasilServiceProvider::class, function () {
+            return new IndexBrasilServiceProvider();
+        });
+
+
+        $this->app->bind(IIndexIbgeServiceProvider::class, function () {
+            return new IndexIbgeServiceProvider();
         });
     }
-
-    /**
-     * Bootstrap services.
-     */
     public function boot(): void
     {
         //

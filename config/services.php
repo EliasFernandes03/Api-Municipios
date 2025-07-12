@@ -35,13 +35,13 @@ return [
         ],
     ],
 
-    'municipality_provider' => env('MUNICIPALITY_PROVIDER', 'brasilapi'),
+    'municipality_provider' => env('MUNICIPALITY_PROVIDER', 'brasilapi','ibgeapi'),
 
     'brasilapi' => [
         'brasil_url' => env('BRASILAPI_URL' ),
     ],
 
-    'ibge' => [
+    'ibgeapi' => [
         'ibge_url' => env('IBGEAPI_URL' ),
     ],
 

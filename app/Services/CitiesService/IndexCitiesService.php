@@ -7,19 +7,23 @@ namespace App\Services\CitiesService;
 use App\Collections\IndexCitiesCollection ;
 
 use App\Services\Interfaces\IIndexBrasilServiceProvider;
+use App\Services\Interfaces\IIndexIbgeServiceProvider;
 use App\Services\Interfaces\IIndexCitiesService;
 use Illuminate\Support\Facades\Cache;
 
 class IndexCitiesService implements IIndexCitiesService
 {
-    private string $uf = 'RS'; 
+    private string $uf ; 
     private int $cacheTtl;
     private string $cacheDriver = 'file';
 
-    private int $page = 1;
-    private int $perPage = 15;
+    private int $page;
+    private int $perPage;
 
-    public function __construct(private IIndexBrasilServiceProvider $brasilServiceProvider)
+    public function __construct (
+        private readonly IIndexBrasilServiceProvider $indexBrasilServiceProvider, 
+        private readonly IIndexIbgeServiceProvider $ibgeServiceProvider
+    )
     {
         $this->cacheTtl = config('services.cache.cities_ttl', 3600); 
     }
@@ -61,7 +65,7 @@ class IndexCitiesService implements IIndexCitiesService
         $allCities = Cache::store($this->cacheDriver)->remember(
             $cacheKey,
             $this->cacheTtl,
-            fn () => $this->brasilServiceProvider->handle($this->uf)
+            fn () => $this->indexBrasilServiceProvider->handle($this->uf)
         );
 
         $citiesData = $allCities['data'] ?? [];

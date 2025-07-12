@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Services\Providers;
 
 use Illuminate\Support\Facades\Http;
-use App\Services\Interfaces\IIndexBrasilServiceProvider;
+use App\Services\Interfaces\IIndexIbgeServiceProvider;
 use App\Support\ApiReturn;
 
-class IndexIbgeServiceProvider implements IIndexBrasilServiceProvider
+class IndexIbgeServiceProvider implements IIndexIbgeServiceProvider
 {
     public function handle(string $uf): array
     {
-        $urlBase = config('services.brasilapi.ibge_url');
+        $urlBase = config('services.ibgeapi.ibge_url');
 
         $url = $urlBase . '/' . ($uf) . "/municipios";
         $response = Http::get($url);
