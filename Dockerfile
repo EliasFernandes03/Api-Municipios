@@ -1,15 +1,13 @@
 FROM php:8.3-apache
 
-# Habilita mod_rewrite (essencial para Laravel)
 RUN a2enmod rewrite
 
-# Define diretório de trabalho
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+
 WORKDIR /var/www/html
 
-# Copia arquivos da aplicação para o container
 COPY . /var/www/html
 
-# Instala dependências necessárias para Laravel
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
@@ -21,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     zip \
     libxml2-dev \
-    && docker-php-ext-install pdo mbstring zip gd
+    && docker-php-ext-install pdo pdo_mysql mbstring zip gd
 
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
