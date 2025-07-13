@@ -1,10 +1,10 @@
-# 🌍 API de Municípios - Laravel + Docker + WSL2
+# API de Municípios - Laravel + Docker + WSL2
 
 Este projeto fornece uma API em Laravel para listagem de municípios brasileiros por UF (estado), executando em ambiente Docker e WSL2.
 
 ---
 
-## ✅ Requisitos
+## Requisitos
 
 Certifique-se de ter as seguintes ferramentas instaladas e funcionando corretamente:
 
@@ -13,11 +13,11 @@ Certifique-se de ter as seguintes ferramentas instaladas e funcionando corretame
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Git](https://git-scm.com)
 
-> ⚠️ O Docker Desktop deve estar configurado para usar o WSL2.
+> O Docker Desktop deve estar configurado para usar o WSL2.
 
 ---
 
-## 🚀 Instruções passo a passo
+##  Instruções passo a passo
 
 ### 1. Clone o repositório
 
