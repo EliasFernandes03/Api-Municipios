@@ -24,10 +24,8 @@ class IndexCitiesService implements IIndexCitiesService
 
     public function __construct(
         private readonly IIndexBrasilServiceProvider $indexBrasilServiceProvider,
-        private readonly IIndexIbgeServiceProvider $ibgeServiceProvider
-    ) {
-        $this->cacheTtl = config('services.cache.cities_ttl', 3600);
-    }
+        private readonly IIndexIbgeServiceProvider $indexIbgeServiceProvider
+    ) {}
 
     public function setUf(string $uf): self
     {
@@ -66,12 +64,15 @@ class IndexCitiesService implements IIndexCitiesService
 
     public function handle(): IndexCitiesCollection
     {
-        $cacheKey = "cities_{$this->uf}";
+      $cacheKey = "cities_{$this->uf}";
 
-        $allCities = Cache::store($this->cacheDriver)->remember(
+      $allCities = Cache::store($this->cacheDriver)->remember(
             $cacheKey,
             $this->cacheTtl,
-            fn () => $this->indexBrasilServiceProvider->handle($this->uf)
+            function () {
+                $brasilData = $this->indexBrasilServiceProvider->handle($this->uf);
+                return $brasilData ?? $this->indexIbgeServiceProvider->handle($this->uf);
+            }
         );
 
         $citiesData = $allCities['data'] ?? [];
