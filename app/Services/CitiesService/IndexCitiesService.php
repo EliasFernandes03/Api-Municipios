@@ -64,13 +64,14 @@ class IndexCitiesService implements IIndexCitiesService
 
     public function handle(): IndexCitiesCollection
     {
-      $cacheKey = "cities_{$this->uf}";
+        $cacheKey = "cities_{$this->uf}";
 
-      $allCities = Cache::store($this->cacheDriver)->remember(
+        $allCities = Cache::store($this->cacheDriver)->remember(
             $cacheKey,
             $this->cacheTtl,
             function () {
                 $brasilData = $this->indexBrasilServiceProvider->handle($this->uf);
+
                 return $brasilData ?? $this->indexIbgeServiceProvider->handle($this->uf);
             }
         );
