@@ -29,9 +29,9 @@ class IndexCitiesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'uf' => ['sometimes', 'string', 'size:2', Rule::in(BrazilUFEnum::values())],
-            'page' => ['required', 'integer', 'min:1'],
-            'per_page' => ['required', 'integer', 'min:1', 'max:100'],
+            'uf' => ['required', 'string', 'size:2', Rule::in(BrazilUFEnum::values())],
+            'page' => ['sometimes', 'integer', 'min:1'],
+            'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
         ];
     }
 
