@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchCities(uf, page, perPage) {
         try {
             const url = `/api/cities?uf=${uf}&page=${page}&per_page=${perPage}`;
-            console.log('Fetching URL:', url); 
             const res = await fetch(url);
             if (!res.ok) {
                 const errorData = await res.json();
