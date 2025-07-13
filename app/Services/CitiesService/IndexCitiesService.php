@@ -18,9 +18,9 @@ class IndexCitiesService implements IIndexCitiesService
 
     private string $cacheDriver = 'file';
 
-    private int $page;
+    private ?int $page;
 
-    private int $perPage;
+    private ?int $perPage;
 
     public function __construct(
         private readonly IIndexBrasilServiceProvider $indexBrasilServiceProvider,
@@ -48,14 +48,14 @@ class IndexCitiesService implements IIndexCitiesService
         return $this;
     }
 
-    public function setPage(int $page): self
+    public function setPage(?int $page): self
     {
         $this->page = $page;
 
         return $this;
     }
 
-    public function setPerPage(int $perPage): self
+    public function setPerPage(?int $perPage): self
     {
         $this->perPage = $perPage;
 

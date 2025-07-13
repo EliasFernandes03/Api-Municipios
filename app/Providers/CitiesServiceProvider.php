@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\CitiesService\IndexCitiesService;
 use App\Services\Interfaces\IIndexBrasilServiceProvider;
+use App\Services\Interfaces\IIndexCitiesService;
 use App\Services\Interfaces\IIndexIbgeServiceProvider;
 use App\Services\Providers\IndexBrasilServiceProvider;
 use App\Services\Providers\IndexIbgeServiceProvider;
@@ -19,6 +21,13 @@ class CitiesServiceProvider extends ServiceProvider
 
         $this->app->bind(IIndexIbgeServiceProvider::class, function () {
             return new IndexIbgeServiceProvider;
+        });
+
+        $this->app->bind(IIndexCitiesService::class, function () {
+            return new IndexCitiesService(
+                $this->app->make(IIndexBrasilServiceProvider::class),
+                $this->app->make(IIndexIbgeServiceProvider::class)
+            );
         });
     }
 

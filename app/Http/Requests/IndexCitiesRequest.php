@@ -41,15 +41,12 @@ class IndexCitiesRequest extends FormRequest
             'uf.required' => 'O parâmetro UF é obrigatório.',
             'uf.size' => 'O parâmetro UF deve conter exatamente 2 letras.',
             'uf.in' => 'O parâmetro UF deve ser uma UF válida do Brasil',
-            'page.required' => 'O parâmetro page é obrigatório.',
             'page.integer' => 'O parâmetro page deve ser um número inteiro.',
-            'per_page.required' => 'O parâmetro per_page é obrigatório.',
             'per_page.integer' => 'O parâmetro per_page deve ser um número inteiro.',
             'per_page.max' => 'O per_page não pode ser maior que 100.',
         ];
     }
 
-    #[\Override]
     protected function failedValidation(Validator $validator): void
     {
         $errors = [];

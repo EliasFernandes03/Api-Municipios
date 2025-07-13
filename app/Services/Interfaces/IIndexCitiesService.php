@@ -14,9 +14,9 @@ interface IIndexCitiesService
 
     public function setCacheDriver(string $driver): self;
 
-    public function setPage(int $page): self;
+    public function setPage(?int $page): self;
 
-    public function setPerPage(int $perPage): self;
+    public function setPerPage(?int $perPage): self;
 
     public function handle(): IndexCitiesCollection;
 }

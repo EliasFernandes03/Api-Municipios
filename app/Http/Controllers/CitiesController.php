@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\IndexCitiesRequest;
-use App\Services\CitiesService\IndexCitiesService;
+use App\Services\Interfaces\IIndexCitiesService;
 use Illuminate\Http\JsonResponse;
 
 class CitiesController extends Controller
 {
-    public function index(IndexCitiesRequest $request, IndexCitiesService $indexCitiesService): JsonResponse
+    public function index(IndexCitiesRequest $request, IIndexCitiesService $indexCitiesService): JsonResponse
     {
-
         $uf = $request->input('uf');
 
         $collection = $indexCitiesService
