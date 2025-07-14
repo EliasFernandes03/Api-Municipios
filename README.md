@@ -62,6 +62,11 @@ php artisan key:generate
 
 ##  Rotas: Listagem de Cidades
 
+###  Base URL
+```
+http://localhost:8080/
+```
+
 ###  `GET /api/cities`
 
 Retorna uma lista paginada de cidades. Permite filtrar por UF (Unidade Federativa).
