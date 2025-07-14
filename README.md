@@ -54,10 +54,16 @@ docker exec -it setup-laravel_php bash
 composer install
 ```
 
-### 5. Gere a chave da aplicação
+### 6. Gere a chave da aplicação
 
 ```bash
 php artisan key:generate
+```
+
+### 7. Forneça as permissões
+
+```bash
+chmod -R 777 storage
 ``` 
 
 ##  Rotas: Listagem de Cidades
@@ -101,6 +107,7 @@ Esta rota exibe uma interface gráfica (frontend) onde o usuário pode:
 
 - Selecionar uma UF (estado brasileiro)
 - Submeter uma requisição para buscar os municípios da UF escolhida
+- Para que essa rota funcione localmente você deverá ir até o arquivo ```resources/views/cities.blade.php``` linha 35 e substituir ```<script src="{{ secure_asset('js/script.js') }}"></script>``` por ```<script src="{{ asset('js/script.js') }}"></script>```
 
 
 ---
